@@ -568,9 +568,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectsInWorld: []
+  buildMaterialSources: []
+  foodSources: []
   trees: []
-  rocks: []
+  buildMaterials: []
   food: []
+  mountains: []
 --- !u!4 &982422748
 Transform:
   m_ObjectHideFlags: 0
@@ -1256,6 +1259,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3810946359511986679, guid: 048eaf4292dc91a4ab80c66866cd3430,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 048eaf4292dc91a4ab80c66866cd3430, type: 3}

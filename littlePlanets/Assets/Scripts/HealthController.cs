@@ -8,6 +8,8 @@ public class HealthController : MonoBehaviour
 
     [HideInInspector]
     public GameManager gm;
+
+    // character
     [HideInInspector]
     public TaskController task;
     [HideInInspector]
@@ -16,11 +18,18 @@ public class HealthController : MonoBehaviour
     public MovementController movement;
     [HideInInspector]
     public Interactor interactor;
+    [HideInInspector]
+    public BuilderController builder;
 
+    //objects
     [HideInInspector]
     public TreeController tree;
     [HideInInspector]
     public FoodController food;
+    [HideInInspector]
+    public MountainController mountain;
+    [HideInInspector]
+    public BuildMaterial buildMaterial;
 
     [HideInInspector] public Rigidbody rb;
 

@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -738962621149126887, guid: c8a7d81f3564e264687858470d2b8111,
+        type: 3}
+      propertyPath: materialsCurrent
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3265263001707513904, guid: c8a7d81f3564e264687858470d2b8111,
         type: 3}
       propertyPath: m_Name
@@ -106,6 +111,11 @@ PrefabInstance:
         type: 3}
       propertyPath: harvestTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 235414767884249108, guid: c8a7d81f3564e264687858470d2b8111,
+        type: 3}
+      propertyPath: woodCurrent
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8a7d81f3564e264687858470d2b8111, type: 3}

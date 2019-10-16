@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TaskController : MonoBehaviour
 {
-    public enum Task {Null, FindFood, Eat };
+    public enum Task {Null, FindFood, Eat, FindBuildMaterials, Build};
     public Task currentTask = Task.Null;
     public HealthController targetObject;
     HealthController hc;
@@ -23,12 +23,18 @@ public class TaskController : MonoBehaviour
             satiety = hc.satiety;
 
         Invoke("ChooseTask", 1);
-        ChooseTask();
+        //ChooseTask();
+    }
+
+    private void Update()
+    {
+        print(targetObject);
     }
 
     void ChooseTask()
     {
         Task newTask = Task.Null;
+        targetObject = null;
 
         // if creature is HUNGRY
         if (satiety && satiety.satietyLevel < satiety.satietyLevelMax / 2)
@@ -41,6 +47,19 @@ public class TaskController : MonoBehaviour
             else
             {
                 newTask = Task.Eat;
+            }
+        }
+
+        // if character can BUILD
+        if (hc.builder)
+        {
+            if (gm.buildMaterials.Count <= 0)
+            {
+                newTask = Task.FindBuildMaterials;
+            }
+            else
+            {
+                newTask = Task.Build;
             }
         }
 
@@ -60,44 +79,56 @@ public class TaskController : MonoBehaviour
             case Task.Eat:
                 EatFood();
                 break;
+
+            case Task.FindBuildMaterials:
+                FindBuildMaterials();
+                break;
+
+            case Task.Build:
+                Build();
+                break;
         }
     }
 
     void FindFood()
     {
-        // find fruit trees
-        if (gm.trees.Count > 0)
+        // find closest food source
+        if (gm.foodSources.Count > 0)
         {
-            List<TreeController> treesWithFruits = new List<TreeController>();
-            foreach(TreeController tree in gm.trees)
+            List<FoodSource> foodSourcesReady = new List<FoodSource>();
+            foreach(FoodSource fs in gm.foodSources)
             {
-                if (tree.fruitsCurrent > 0)
+                if (fs.foodCurrent > 0)
                 {
-                    treesWithFruits.Add(tree);
+                    foodSourcesReady.Add(fs);
                 }
             }
 
-            TreeController closestTree = null;
+            FoodSource closestSource = null;
             float distance = 100;
 
-            if (treesWithFruits.Count > 0)
+            if (foodSourcesReady.Count > 0)
             {
                 // find closest tree with fruits
-                foreach (TreeController t in treesWithFruits)
+                foreach (FoodSource fs in foodSourcesReady)
                 {
-                    float newDistance = Vector3.Distance(t.transform.position, transform.position);
+                    float newDistance = Vector3.Distance(fs.transform.position, transform.position);
                     if (newDistance <= distance)
                     {
                         distance = newDistance;
-                        closestTree = t;
+                        closestSource = fs;
                     }
                 }
 
-                if (closestTree != null)
+                if (closestSource != null)
                 {
-                    targetObject = closestTree.hc;
-                    hc.movement.Move(closestTree.gameObject);
+                    targetObject = closestSource.hc;
+                    hc.movement.Move(closestSource.gameObject);
                     StartCoroutine(GetDistanceToTarget());
+                }
+                else
+                {
+                    Invoke("ChooseTask", 1);
                 }
             }
         }
@@ -124,6 +155,59 @@ public class TaskController : MonoBehaviour
             hc.movement.Move(f.gameObject);
             StartCoroutine(GetDistanceToTarget());
         }
+        else
+        {
+            Invoke("ChooseTask", 1);
+        }
+    }
+
+    void FindBuildMaterials()
+    {
+        // find closest build material source
+        if (gm.buildMaterialSources.Count > 0)
+        {
+            List<BuildMaterialSource> materialSourcesReady = new List<BuildMaterialSource>();
+            foreach (BuildMaterialSource bms in gm.buildMaterialSources)
+            {
+                if (bms.materialsCurrent > 0)
+                {
+                    materialSourcesReady.Add(bms);
+                }
+            }
+
+            BuildMaterialSource closestSource = null;
+            float distance = 100;
+
+            if (materialSourcesReady.Count > 0)
+            {
+                // find closest tree with fruits
+                foreach (BuildMaterialSource bms in materialSourcesReady)
+                {
+                    float newDistance = Vector3.Distance(bms.transform.position, transform.position);
+                    if (newDistance <= distance)
+                    {
+                        distance = newDistance;
+                        closestSource = bms;
+                    }
+                }
+
+                if (closestSource != null)
+                {
+                    targetObject = closestSource.hc;
+                    hc.movement.Move(closestSource.gameObject);
+                    StartCoroutine(GetDistanceToTarget());
+                }
+                else
+                {
+                    Invoke("ChooseTask", 1);
+                }
+            }
+        }
+    }
+
+    void Build()
+    {
+
     }
 
     IEnumerator GetDistanceToTarget()
@@ -145,7 +229,6 @@ public class TaskController : MonoBehaviour
 
     public void TaskComplete()
     {
-
         ChooseTask();
     }
 }

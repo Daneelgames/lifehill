@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockController : MonoBehaviour
+public class BuilderController : MonoBehaviour
 {
-    HealthController hc;
     GameManager gm;
+    [HideInInspector]
+    public HealthController hc;
 
     private void Start()
     {
         gm = GameManager.instance;
-        gm.rocks.Add(this);
+
         hc = GetComponent<HealthController>();
+        hc.builder = this;
     }
+
+
 }

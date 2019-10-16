@@ -11,9 +11,16 @@ public class GameManager : MonoBehaviour
 
     public List<HealthController> objectsInWorld = new List<HealthController>();
 
+    public List<BuildMaterialSource> buildMaterialSources = new List<BuildMaterialSource>();
+    public List<FoodSource> foodSources = new List<FoodSource>();
+
     public List<TreeController> trees = new List<TreeController>();
-    public List<RockController> rocks = new List<RockController>();
+
+    public List<BuildMaterial> buildMaterials = new List<BuildMaterial>();
     public List<FoodController> food = new List<FoodController>();
+
+    public List<MountainController> mountains = new List<MountainController>();
+
 
     private void Awake()
     {

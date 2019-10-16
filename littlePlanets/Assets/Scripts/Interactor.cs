@@ -23,6 +23,10 @@ public class Interactor : MonoBehaviour
             {
                 StartCoroutine(target.tree.Shake(hc));
             }
+            else if (hc.task.currentTask == TaskController.Task.FindBuildMaterials)
+            {
+                StartCoroutine(target.tree.Chop(hc));
+            }
         }
         else if (target.food)
         {
@@ -30,6 +34,10 @@ public class Interactor : MonoBehaviour
             {
                 StartCoroutine(target.food.Eat(hc));
             }
+        }
+        else if (target.mountain)
+        {
+
         }
     }
 }

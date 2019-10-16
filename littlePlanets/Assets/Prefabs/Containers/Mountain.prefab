@@ -88,11 +88,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3265263001707513907}
   - component: {fileID: 8372184760108965075}
-  - component: {fileID: 7732038187021712466}
+  - component: {fileID: 7049732497986613101}
+  - component: {fileID: -5729916115570020985}
   - component: {fileID: 3265263001707513906}
   - component: {fileID: 3540973542416269385}
   m_Layer: 0
-  m_Name: Rock
+  m_Name: Mountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +126,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84deeb02fbd64542b207d71accd0d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7732038187021712466
+  health: 100
+  gm: {fileID: 0}
+  task: {fileID: 0}
+  satiety: {fileID: 0}
+  movement: {fileID: 0}
+  interactor: {fileID: 0}
+  builder: {fileID: 0}
+  tree: {fileID: 0}
+  food: {fileID: 0}
+  mountain: {fileID: 0}
+  buildMaterial: {fileID: 0}
+  rb: {fileID: 0}
+--- !u!114 &7049732497986613101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3265263001707513904}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2838ce45e36caa43a509a678cf293a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialsCurrent: 0
+  hc: {fileID: 0}
+  tree: {fileID: 0}
+  mountain: {fileID: 0}
+--- !u!114 &-5729916115570020985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,9 +163,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3265263001707513904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b2c1d70e762cb249b724c330276e4a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e92c853c0111fc428af41b190b6e8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hc: {fileID: 0}
+  bms: {fileID: 0}
 --- !u!65 &3265263001707513906
 BoxCollider:
   m_ObjectHideFlags: 0

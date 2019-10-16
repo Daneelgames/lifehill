@@ -89,8 +89,9 @@ GameObject:
   - component: {fileID: 3810946359511986684}
   - component: {fileID: 3810946359511986685}
   - component: {fileID: 3810946359511986674}
-  - component: {fileID: 3810946359511986675}
   - component: {fileID: 3810946359511986672}
+  - component: {fileID: 3810946359511986675}
+  - component: {fileID: 1125468494352707216}
   - component: {fileID: 3810946359511986673}
   - component: {fileID: 3810946359511986678}
   - component: {fileID: 3810946359511986679}
@@ -135,8 +136,11 @@ MonoBehaviour:
   satiety: {fileID: 0}
   movement: {fileID: 0}
   interactor: {fileID: 0}
+  builder: {fileID: 0}
   tree: {fileID: 0}
   food: {fileID: 0}
+  mountain: {fileID: 0}
+  buildMaterial: {fileID: 0}
   rb: {fileID: 0}
 --- !u!114 &3810946359511986674
 MonoBehaviour:
@@ -152,6 +156,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTask: 0
   targetObject: {fileID: 0}
+--- !u!114 &3810946359511986672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3810946359511986677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa393d6bd5094a544aed1f5fb01759ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
 --- !u!114 &3810946359511986675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   satietyLevel: 100
   satietyLevelMax: 100
---- !u!114 &3810946359511986672
+--- !u!114 &1125468494352707216
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,10 +192,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3810946359511986677}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa393d6bd5094a544aed1f5fb01759ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 59581fed454cace479483f003002612b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  hc: {fileID: 0}
 --- !u!114 &3810946359511986673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +234,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}

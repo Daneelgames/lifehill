@@ -92,6 +92,11 @@ PrefabInstance:
       propertyPath: harvestTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4432473572890561095, guid: 007856fd50c95734fa9fbc680ffa653f,
+        type: 3}
+      propertyPath: woodCurrent
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1411764303520688737, guid: 007856fd50c95734fa9fbc680ffa653f,
         type: 3}
       propertyPath: m_Size.y
@@ -121,6 +126,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 5.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5438587105426062666, guid: 007856fd50c95734fa9fbc680ffa653f,
+        type: 3}
+      propertyPath: materialsCurrent
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 007856fd50c95734fa9fbc680ffa653f, type: 3}

@@ -12,7 +12,11 @@ public class TreeController : MonoBehaviour
     public float fruitsGrowCooldownMin = 600; 
     public float fruitsGrowCooldownMax = 6000;
 
-    public float harvestTime = 1;
+    public float chopTime = 1;
+    public int chopAmount = 5;
+    public int woodCurrent = 0;
+
+    public float shakeTime = 1;
 
     public int fruitsCurrent = 0;
     public int fruitsMin = 3;
@@ -20,6 +24,9 @@ public class TreeController : MonoBehaviour
 
     [HideInInspector] public HealthController hc;
     [HideInInspector] public Animator anim;
+    [HideInInspector] public FoodSource fs;
+    [HideInInspector] public BuildMaterialSource bms;
+
     GameManager gm;
 
     HealthController character;
@@ -38,6 +45,8 @@ public class TreeController : MonoBehaviour
         fruitsObject.SetActive(false);
         if (Random.value > 0.5)
             fruitsGrowCooldownCurrent = Random.Range(0, fruitsGrowCooldownMax);
+
+        bms.materialsCurrent = woodCurrent;
     }
 
     private void Update()
@@ -55,6 +64,8 @@ public class TreeController : MonoBehaviour
     {
         fruitsCurrent = Random.Range(fruitsMin, fruitsMax + 1);
         fruitsObject.SetActive(true);
+
+        fs.foodCurrent = fruitsCurrent;
     }
 
     public IEnumerator Shake(HealthController c)
@@ -64,8 +75,22 @@ public class TreeController : MonoBehaviour
         {
             anim.SetTrigger("Shake");
             DropFruit(c);
-            yield return new WaitForSeconds(harvestTime);
+            yield return new WaitForSeconds(shakeTime);
         }
+    }
+
+    public IEnumerator Chop(HealthController c)
+    {
+        character = c;
+
+        while (chopAmount > 0)
+        {
+            yield return new WaitForSeconds(chopTime);
+            chopAmount--;
+            anim.SetTrigger("Shake"); // replace to chop animation
+        }
+
+        TreeFall();
     }
 
     void DropFruit(HealthController c)
@@ -75,7 +100,18 @@ public class TreeController : MonoBehaviour
         {
             HealthController fruit = Instantiate(fruitPrefab, fruitHolder.position, Quaternion.identity);
             fruitsCurrent--;
-            
+
+
+            float x = 1;
+            if (Random.value > 0.5f) x = -1;
+            float z = 1;
+            if (Random.value > 0.5f) z = -1;
+
+            var explosionPosition = fruitHolder.position + new Vector3(x, -1, z);
+
+            fruit.rb.AddExplosionForce(Random.Range(50, 500), explosionPosition, 5);
+
+            /*
             if (Random.value > 0.1f)
             {
                 float x = 1;
@@ -91,12 +127,53 @@ public class TreeController : MonoBehaviour
             {
                 fruit.rb.MovePosition(c.transform.position + Vector3.up * fruitHolder.transform.position.y);
             }
+            */
         }
+
+        fs.foodCurrent = fruitsCurrent;
 
         if (fruitsCurrent <= 0)
         {
             character.task.TaskComplete();
             fruitsObject.SetActive(false);
         }
+    }
+
+    void TreeFall()
+    {
+        if (fruitsCurrent > 0)
+        {
+            for (int i = 0; i < fruitsCurrent; i ++)
+            {
+                HealthController fruit = Instantiate(fruitPrefab, fruitHolder.position, Quaternion.identity);
+
+                float x = 1;
+                if (Random.value > 0.5f) x = -1;
+                float z = 1;
+                if (Random.value > 0.5f) z = -1;
+
+                var explosionPosition = fruitHolder.position + new Vector3(x, -1, z);
+
+                fruit.rb.AddExplosionForce(Random.Range(50, 500), explosionPosition, 5);
+            }
+            fruitsObject.SetActive(false);
+        }
+        float x2 = 1;
+        if (Random.value > 0.5f) x2 = -1;
+        float z2 = 1;
+        if (Random.value > 0.5f) z2 = -1;
+
+        var explosionPosition2 = fruitHolder.position + new Vector3(x2, -1, z2);
+
+        anim.SetTrigger("Fall");
+
+        hc.rb.constraints = RigidbodyConstraints.None;
+        hc.rb.AddExplosionForce(50, explosionPosition2, 5);
+
+        gm.trees.Remove(this);
+        gm.buildMaterialSources.Remove(bms);
+        gm.foodSources.Remove(fs);
+
+        character.task.TaskComplete();
     }
 }
