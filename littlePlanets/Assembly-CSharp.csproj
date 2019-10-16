@@ -62,20 +62,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BuilderController.cs" />
-    <Compile Include="Assets\BuildMaterialSource.cs" />
-    <Compile Include="Assets\FoodSource.cs" />
     <Compile Include="Assets\GameManager.cs" />
-    <Compile Include="Assets\MountainController.cs" />
+    <Compile Include="Assets\Scripts\BuilderController.cs" />
     <Compile Include="Assets\Scripts\BuildMaterial.cs" />
+    <Compile Include="Assets\Scripts\BuildMaterialSource.cs" />
+    <Compile Include="Assets\Scripts\DestroyOnTime.cs" />
     <Compile Include="Assets\Scripts\FoodController.cs" />
+    <Compile Include="Assets\Scripts\FoodSource.cs" />
     <Compile Include="Assets\Scripts\HealthController.cs" />
     <Compile Include="Assets\Scripts\Interactor.cs" />
+    <Compile Include="Assets\Scripts\MountainController.cs" />
     <Compile Include="Assets\Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\SatietyController.cs" />
     <Compile Include="Assets\Scripts\TaskController.cs" />
-    <Compile Include="Assets\TreeController.cs" />
+    <Compile Include="Assets\Scripts\TreeController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/@Prototypes/lifehill/littlePlanets/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

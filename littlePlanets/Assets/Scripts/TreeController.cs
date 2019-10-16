@@ -33,6 +33,9 @@ public class TreeController : MonoBehaviour
 
     HealthController character;
 
+    public List<HealthController> woods;
+    public GameObject foliage;
+
     private void Start()
     {
         gm = GameManager.instance;
@@ -170,7 +173,7 @@ public class TreeController : MonoBehaviour
 
         var explosionPosition2 = fruitHolder.position + new Vector3(x2, -1, z2);
 
-        anim.SetTrigger("Fall");
+        //anim.SetTrigger("Fall");
 
         hc.rb.constraints = RigidbodyConstraints.None;
         hc.rb.AddExplosionForce(100, explosionPosition2, 5);
@@ -179,14 +182,22 @@ public class TreeController : MonoBehaviour
         gm.buildMaterialSources.Remove(bms);
         gm.foodSources.Remove(fs);
 
-        Invoke("SetLayer", 2);
-
         character.task.TaskComplete();
+
+        Invoke("DropLogs", 1);
     }
 
-    void SetLayer()
+    void DropLogs()
     {
-        obstacle.carving = false;
-        gameObject.layer = 9; // layer wich doesn't collide with characters
+        foliage.transform.parent = null;
+        foliage.SetActive(true);
+
+        foreach(HealthController wood in woods)
+        {
+            wood.gameObject.SetActive(true);
+            wood.transform.parent = null;
+        }
+
+        hc.DestroyObject();
     }
 }
