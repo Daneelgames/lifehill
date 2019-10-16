@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3810946358441926849}
   - component: {fileID: 3810946358441926851}
   - component: {fileID: 3810946358441926848}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3810946359511986678}
   - component: {fileID: 3810946359511986679}
   - component: {fileID: 3810946359511986676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,6 +136,7 @@ MonoBehaviour:
   movement: {fileID: 0}
   interactor: {fileID: 0}
   tree: {fileID: 0}
+  food: {fileID: 0}
   rb: {fileID: 0}
 --- !u!114 &3810946359511986674
 MonoBehaviour:

@@ -13,6 +13,10 @@ public class FoodController : MonoBehaviour
     public HealthController hc;
 
     HealthController character;
+    Animator anim;
+
+    bool lerpToPosition = false;
+    Vector3 targetPosition;
 
     private void Start()
     {
@@ -20,6 +24,7 @@ public class FoodController : MonoBehaviour
         hc.food = this;
         gm = hc.gm;
         gm.food.Add(this);
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -30,13 +35,27 @@ public class FoodController : MonoBehaviour
             gm.food.Remove(this);
             hc.DestroyObject();
         }
+
+        if (lerpToPosition)
+        {
+            hc.rb.MovePosition(Vector3.Lerp(transform.position, targetPosition, 0.1f));
+        }
     }
 
     public IEnumerator Eat(HealthController c)
     {
         character = c;
+        hc.rb.isKinematic = true;
+
+        targetPosition = transform.position + Vector3.up * 1.5f;
+        lerpToPosition = true;
+
+        anim.SetBool("Eat", true);
+
         yield return new WaitForSeconds(eatTime);
         character.satiety.FillSatiety(satiety);
         character.task.TaskComplete();
+        gm.food.Remove(this);
+        hc.DestroyObject();
     }
 }

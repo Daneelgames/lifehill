@@ -22,6 +22,21 @@ public class MovementController : MonoBehaviour
 
     public void Move(GameObject go)
     {
-        agent.SetDestination(go.transform.position + (transform.position - go.transform.position).normalized / 3);
+        NavMeshPath path = new NavMeshPath();
+        NavMesh.CalculatePath(transform.position, go.transform.position + (transform.position - go.transform.position).normalized / 3, NavMesh.AllAreas, path);
+
+        agent.SetPath(path); //Agent is the NavMeshAgent attached to gameObject
+        print(agent.pathStatus);
+        agent.isStopped = false;
+
+        /*
+        Vector3 targetPoint = go.transform.position;
+        NavMeshHit hit;
+        NavMesh.SamplePosition(targetPoint, out hit, 3f, NavMesh.AllAreas);
+
+        agent.SetDestination(hit.position + (transform.position - hit.position).normalized / 3);
+        */
+     
+        //agent.SetDestination(go.transform.position + (transform.position - go.transform.position).normalized / 3);
     }
 }
