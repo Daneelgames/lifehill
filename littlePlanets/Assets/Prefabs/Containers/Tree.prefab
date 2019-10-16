@@ -482,6 +482,8 @@ MonoBehaviour:
   food: {fileID: 0}
   mountain: {fileID: 0}
   buildMaterial: {fileID: 0}
+  fs: {fileID: 0}
+  bms: {fileID: 0}
   rb: {fileID: 0}
 --- !u!114 &8653118449004810877
 MonoBehaviour:
@@ -496,6 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodCurrent: 6
+  characterWhoTargeted: {fileID: 0}
   hc: {fileID: 0}
   tree: {fileID: 0}
 --- !u!114 &-738962621149126887
@@ -511,6 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialsCurrent: 0
+  characterWhoTargeted: {fileID: 0}
   hc: {fileID: 0}
   tree: {fileID: 0}
   mountain: {fileID: 0}
@@ -543,6 +547,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   fs: {fileID: 0}
   bms: {fileID: 0}
+  obstacle: {fileID: 0}
 --- !u!65 &3265263001707513906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -566,7 +571,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.25, y: 2, z: 0.25}
+  m_Extents: {x: 0.15, y: 2, z: 0.15}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

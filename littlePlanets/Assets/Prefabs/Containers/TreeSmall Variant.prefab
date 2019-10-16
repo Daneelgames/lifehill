@@ -117,5 +117,10 @@ PrefabInstance:
       propertyPath: woodCurrent
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 235414767884249108, guid: c8a7d81f3564e264687858470d2b8111,
+        type: 3}
+      propertyPath: chopAmount
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8a7d81f3564e264687858470d2b8111, type: 3}

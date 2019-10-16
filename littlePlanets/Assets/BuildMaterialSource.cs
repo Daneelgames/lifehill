@@ -7,6 +7,9 @@ public class BuildMaterialSource : MonoBehaviour
     [HideInInspector]
     public int materialsCurrent = 0;
 
+    [HideInInspector]
+    public HealthController characterWhoTargeted;
+
     GameManager gm;
     [HideInInspector]
     public HealthController hc;

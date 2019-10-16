@@ -112,6 +112,11 @@ PrefabInstance:
       propertyPath: woodCurrent
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1002491800928438407, guid: 88a117495e547bb4ca90068306689df0,
+        type: 3}
+      propertyPath: chopAmount
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2593308016976292001, guid: 88a117495e547bb4ca90068306689df0,
         type: 3}
       propertyPath: m_Size.y

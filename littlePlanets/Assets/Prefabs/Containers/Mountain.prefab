@@ -137,6 +137,8 @@ MonoBehaviour:
   food: {fileID: 0}
   mountain: {fileID: 0}
   buildMaterial: {fileID: 0}
+  fs: {fileID: 0}
+  bms: {fileID: 0}
   rb: {fileID: 0}
 --- !u!114 &7049732497986613101
 MonoBehaviour:
@@ -151,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   materialsCurrent: 0
+  characterWhoTargeted: {fileID: 0}
   hc: {fileID: 0}
   tree: {fileID: 0}
   mountain: {fileID: 0}
@@ -191,7 +194,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.15, y: 0.5, z: 0.15}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

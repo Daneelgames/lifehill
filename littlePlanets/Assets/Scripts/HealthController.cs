@@ -30,6 +30,10 @@ public class HealthController : MonoBehaviour
     public MountainController mountain;
     [HideInInspector]
     public BuildMaterial buildMaterial;
+    [HideInInspector]
+    public FoodSource fs;
+    [HideInInspector]
+    public BuildMaterialSource bms;
 
     [HideInInspector] public Rigidbody rb;
 

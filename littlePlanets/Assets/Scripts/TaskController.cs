@@ -98,7 +98,7 @@ public class TaskController : MonoBehaviour
             List<FoodSource> foodSourcesReady = new List<FoodSource>();
             foreach(FoodSource fs in gm.foodSources)
             {
-                if (fs.foodCurrent > 0)
+                if (fs.foodCurrent > 0 && !fs.characterWhoTargeted)
                 {
                     foodSourcesReady.Add(fs);
                 }
@@ -122,6 +122,7 @@ public class TaskController : MonoBehaviour
 
                 if (closestSource != null)
                 {
+                    closestSource.characterWhoTargeted = hc;
                     targetObject = closestSource.hc;
                     hc.movement.Move(closestSource.gameObject);
                     StartCoroutine(GetDistanceToTarget());
@@ -169,7 +170,7 @@ public class TaskController : MonoBehaviour
             List<BuildMaterialSource> materialSourcesReady = new List<BuildMaterialSource>();
             foreach (BuildMaterialSource bms in gm.buildMaterialSources)
             {
-                if (bms.materialsCurrent > 0)
+                if (bms.materialsCurrent > 0 && !bms.characterWhoTargeted)
                 {
                     materialSourcesReady.Add(bms);
                 }
@@ -193,6 +194,7 @@ public class TaskController : MonoBehaviour
 
                 if (closestSource != null)
                 {
+                    closestSource.characterWhoTargeted = hc;
                     targetObject = closestSource.hc;
                     hc.movement.Move(closestSource.gameObject);
                     StartCoroutine(GetDistanceToTarget());
@@ -216,7 +218,22 @@ public class TaskController : MonoBehaviour
         {
             yield return new WaitForSeconds(0.1f);
 
-            if (targetObject == null) break;
+            if (targetObject == null)
+            {
+                ChooseTask();
+                break;
+            }
+
+            if (targetObject.fs && targetObject.fs.characterWhoTargeted != hc)
+            {
+                ChooseTask();
+                break;
+            }
+            if (targetObject.bms && targetObject.bms.characterWhoTargeted != hc)
+            {
+                ChooseTask();
+                break;
+            }
 
             if (hc.movement.agent.velocity == Vector3.zero && Vector3.Distance(transform.position, targetObject.transform.position) <= 2)
             {

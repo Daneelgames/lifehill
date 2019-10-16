@@ -7,6 +7,9 @@ public class FoodSource : MonoBehaviour
     [HideInInspector]
     public int foodCurrent = 0;
 
+    [HideInInspector]
+    public HealthController characterWhoTargeted;
+
     GameManager gm;
     [HideInInspector]
     public HealthController hc;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TreeController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class TreeController : MonoBehaviour
     [HideInInspector] public Animator anim;
     [HideInInspector] public FoodSource fs;
     [HideInInspector] public BuildMaterialSource bms;
+    [HideInInspector] public NavMeshObstacle obstacle;
 
     GameManager gm;
 
@@ -41,6 +43,8 @@ public class TreeController : MonoBehaviour
 
         anim = GetComponent<Animator>();
         anim.Play(0, -1, Random.value);
+
+        obstacle = GetComponent<NavMeshObstacle>();
 
         fruitsObject.SetActive(false);
         if (Random.value > 0.5)
@@ -71,6 +75,7 @@ public class TreeController : MonoBehaviour
     public IEnumerator Shake(HealthController c)
     {
         character = c;
+
         while(fruitsCurrent > 0)
         {
             anim.SetTrigger("Shake");
@@ -173,7 +178,15 @@ public class TreeController : MonoBehaviour
         gm.trees.Remove(this);
         gm.buildMaterialSources.Remove(bms);
         gm.foodSources.Remove(fs);
+        obstacle.carving = false;
+
+        Invoke("SetLayer", 3);
 
         character.task.TaskComplete();
+    }
+
+    void SetLayer()
+    {
+        gameObject.layer = 9; // layer wich doesn't collide with characters
     }
 }
