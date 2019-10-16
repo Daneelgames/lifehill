@@ -235,8 +235,9 @@ public class TaskController : MonoBehaviour
                 break;
             }
 
-            if (hc.movement.agent.velocity == Vector3.zero && Vector3.Distance(transform.position, targetObject.transform.position) <= 2)
+            if (hc.movement.agent.velocity.magnitude < 1f && Vector3.Distance(transform.position, targetObject.transform.position) <= 2)
             {
+                hc.movement.agent.isStopped = true;
                 if (hc.interactor)
                     hc.interactor.InteractWithTarget(targetObject);
                 break;

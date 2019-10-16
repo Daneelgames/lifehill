@@ -159,7 +159,7 @@ public class TreeController : MonoBehaviour
 
                 var explosionPosition = fruitHolder.position + new Vector3(x, -1, z);
 
-                fruit.rb.AddExplosionForce(Random.Range(50, 500), explosionPosition, 5);
+                fruit.rb.AddExplosionForce(Random.Range(50, 200), explosionPosition, 5);
             }
             fruitsObject.SetActive(false);
         }
@@ -173,20 +173,20 @@ public class TreeController : MonoBehaviour
         anim.SetTrigger("Fall");
 
         hc.rb.constraints = RigidbodyConstraints.None;
-        hc.rb.AddExplosionForce(50, explosionPosition2, 5);
+        hc.rb.AddExplosionForce(100, explosionPosition2, 5);
 
         gm.trees.Remove(this);
         gm.buildMaterialSources.Remove(bms);
         gm.foodSources.Remove(fs);
-        obstacle.carving = false;
 
-        Invoke("SetLayer", 3);
+        Invoke("SetLayer", 2);
 
         character.task.TaskComplete();
     }
 
     void SetLayer()
     {
+        obstacle.carving = false;
         gameObject.layer = 9; // layer wich doesn't collide with characters
     }
 }
