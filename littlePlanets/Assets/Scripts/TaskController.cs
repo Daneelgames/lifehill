@@ -247,6 +247,6 @@ public class TaskController : MonoBehaviour
 
     public void TaskComplete()
     {
-        ChooseTask();
+        Invoke("ChooseTask", 2);
     }
 }
