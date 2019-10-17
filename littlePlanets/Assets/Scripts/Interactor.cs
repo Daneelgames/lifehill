@@ -23,7 +23,7 @@ public class Interactor : MonoBehaviour
             {
                 StartCoroutine(target.tree.Shake(hc));
             }
-            else if (hc.task.currentTask == TaskController.Task.FindBuildMaterials)
+            else if (hc.task.currentTask == TaskController.Task.GatherMaterials)
             {
                 StartCoroutine(target.tree.Chop(hc));
             }

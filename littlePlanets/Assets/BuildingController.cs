@@ -8,6 +8,7 @@ public class BuildingController : MonoBehaviour
     [HideInInspector]
     public HealthController hc;
 
+    public float timeToBuild = 120; // seconds
     public int woodNeed = 1;
     public int rockNeed = 1;
 

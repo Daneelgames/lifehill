@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TaskController : MonoBehaviour
 {
-    public enum Task {Null, FindFood, Eat, FindBuildMaterials, Build};
+    public enum Task {Null, FindFood, Eat, GatherMaterials, Build};
     public Task currentTask = Task.Null;
     public HealthController targetObject;
     HealthController hc;
@@ -172,7 +172,7 @@ public class TaskController : MonoBehaviour
             {
                 //there are enough materials
 
-                hc.builder.Build();
+                hc.builder.ChooseBuildingPosition();
             }
         }
     }
@@ -182,7 +182,7 @@ public class TaskController : MonoBehaviour
         // find closest build material source
         if (gm.buildMaterialSources.Count > 0)
         {
-            currentTask = Task.FindBuildMaterials;
+            currentTask = Task.GatherMaterials;
 
             List<BuildMaterialSource> materialSourcesReady = new List<BuildMaterialSource>();
             foreach (BuildMaterialSource bms in gm.buildMaterialSources)
