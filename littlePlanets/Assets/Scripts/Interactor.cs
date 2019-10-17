@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    public HealthController carriedObject;
+
     HealthController hc;
     GameManager gm;
 
@@ -38,6 +40,39 @@ public class Interactor : MonoBehaviour
         else if (target.mountain)
         {
 
+        }
+        else if (target.buildMaterial)
+        {
+            if (hc.task.currentTask == TaskController.Task.Build)
+            {
+                // pick up material
+                carriedObject = target;
+                target.rb.isKinematic = true;
+                target.transform.position += Vector3.up * 1.5f;
+                target.transform.parent = transform;
+
+                hc.task.CarryMaterial();
+            }
+        }
+        else if (target.building)
+        {
+            if (hc.task.currentTask == TaskController.Task.Build)
+            {
+                if (carriedObject != null)
+                {
+                    carriedObject.transform.parent = null;
+                    carriedObject.rb.isKinematic = false;
+                    carriedObject.buildMaterial.usedInBuilding = true;
+                    hc.builder.buildingInstance.AddMaterial(carriedObject.buildMaterial);
+
+                    hc.builder.PlaceMaterial(carriedObject);
+                    carriedObject = null;
+                }
+                else
+                {
+                    hc.builder.StartBuilding();
+                }
+            }
         }
     }
 }

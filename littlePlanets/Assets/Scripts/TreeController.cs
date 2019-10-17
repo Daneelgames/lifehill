@@ -53,6 +53,7 @@ public class TreeController : MonoBehaviour
         if (Random.value > 0.5)
             fruitsGrowCooldownCurrent = Random.Range(0, fruitsGrowCooldownMax);
 
+        fs.foodCurrent = fruitsCurrent;
         bms.materialsCurrent = woodCurrent;
     }
 

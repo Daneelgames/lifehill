@@ -163,8 +163,17 @@ MonoBehaviour:
   satiety: {fileID: 0}
   movement: {fileID: 0}
   interactor: {fileID: 0}
+  builder: {fileID: 0}
+  ownership: {fileID: 0}
+  owner: {fileID: 0}
+  characterWhoTargeted: {fileID: 0}
   tree: {fileID: 0}
   food: {fileID: 0}
+  mountain: {fileID: 0}
+  buildMaterial: {fileID: 0}
+  fs: {fileID: 0}
+  bms: {fileID: 0}
+  building: {fileID: 0}
   rb: {fileID: 0}
 --- !u!114 &1687722537744820831
 MonoBehaviour:
@@ -178,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489217422a92c56428fab2811f5fbefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satiety: 10
+  satiety: 15
   eatTime: 5
   spoilTime: 600
   hc: {fileID: 0}

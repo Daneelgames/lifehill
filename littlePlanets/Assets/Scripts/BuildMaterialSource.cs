@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class BuildMaterialSource : MonoBehaviour
 {
-    [HideInInspector]
+    public BuildMaterial.Type materialType = BuildMaterial.Type.Wood;
     public int materialsCurrent = 0;
 
-    [HideInInspector]
-    public HealthController characterWhoTargeted;
 
     GameManager gm;
     [HideInInspector]

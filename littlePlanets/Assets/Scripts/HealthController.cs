@@ -24,6 +24,8 @@ public class HealthController : MonoBehaviour
     public OwnershipController ownership;
 
     public HealthController owner;
+    [HideInInspector]
+    public HealthController characterWhoTargeted;
 
     //objects
     [HideInInspector]

@@ -7,7 +7,10 @@ public class BuildMaterial : MonoBehaviour
     public enum Type {Wood, Rock};
     public Type materialType = Type.Wood;
     GameManager gm;
-    HealthController hc;
+    [HideInInspector]
+    public HealthController hc;
+
+    public bool usedInBuilding = false;
 
     private void Awake()
     {
@@ -25,5 +28,21 @@ public class BuildMaterial : MonoBehaviour
 
         hc = GetComponent<HealthController>();
         hc.buildMaterial = this;
+    }
+
+    public void DestroyObject()
+    {
+        switch (materialType)
+        {
+            case Type.Rock:
+                gm.rock.Remove(this);
+                break;
+
+            case Type.Wood:
+                gm.wood.Remove(this);
+                break;
+        }
+
+        hc.DestroyObject();
     }
 }

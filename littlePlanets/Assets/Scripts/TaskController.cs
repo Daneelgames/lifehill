@@ -25,14 +25,10 @@ public class TaskController : MonoBehaviour
         Invoke("ChooseTask", 1);
     }
 
-    private void Update()
-    {
-        print(targetObject);
-    }
-
     void ChooseTask()
     {
         Task newTask = Task.Null;
+        currentTask = Task.Null;
         targetObject = null;
 
         // if creature is HUNGRY
@@ -48,9 +44,7 @@ public class TaskController : MonoBehaviour
                 newTask = Task.Eat;
             }
         }
-
-        // if character can BUILD
-        if (hc.builder)
+        else if (hc.builder) // if character can BUILD
         {
             newTask = Task.Build;
         }
@@ -61,6 +55,8 @@ public class TaskController : MonoBehaviour
             Invoke("ChooseTask", 1);
             return;
         }
+
+        print(currentTask);
 
         switch (currentTask)
         {
@@ -158,22 +154,31 @@ public class TaskController : MonoBehaviour
 
     void Build()
     {
-        if (hc.ownership.ownBuildings.Count == 0)
+        if (hc.builder.buildingInConstruction == null)
         {
-            if (gm.buildingTree.buildingsPrefabs[0].woodNeed > gm.wood.Count)
+            if (hc.ownership.ownBuildings.Count == 0)
             {
-                FindBuildMaterials(BuildMaterial.Type.Wood);
-            }
-            else if (gm.buildingTree.buildingsPrefabs[0].rockNeed > gm.rock.Count)
-            {
-                FindBuildMaterials(BuildMaterial.Type.Rock);
-            }
-            else
-            {
-                //there are enough materials
+                if (gm.buildingTree.buildingsPrefabs[0].woodNeed > gm.wood.Count)
+                {
+                    FindBuildMaterials(BuildMaterial.Type.Wood);
+                }
+                else if (gm.buildingTree.buildingsPrefabs[0].rockNeed > gm.rock.Count)
+                {
+                    FindBuildMaterials(BuildMaterial.Type.Rock);
+                }
+                else
+                {
+                    //there are enough materials
 
-                hc.builder.ChooseBuildingPosition();
+                    hc.builder.ChooseBuildingPosition();
+                }
             }
+        }
+        else // continue construction
+        {
+            targetObject = hc.builder.buildingInConstruction.hc;
+            hc.movement.Move(targetObject.gameObject);
+            StartCoroutine(GetDistanceToTarget());
         }
     }
 
@@ -187,14 +192,14 @@ public class TaskController : MonoBehaviour
             List<BuildMaterialSource> materialSourcesReady = new List<BuildMaterialSource>();
             foreach (BuildMaterialSource bms in gm.buildMaterialSources)
             {
-                if (bms.materialsCurrent > 0 && !bms.characterWhoTargeted)
+                if (bms.materialsCurrent > 0 && !bms.hc.characterWhoTargeted && bms.materialType == type)
                 {
                     materialSourcesReady.Add(bms);
                 }
             }
 
             BuildMaterialSource closestSource = null;
-            float distance = 100;
+            float distance = 1000;
 
             if (materialSourcesReady.Count > 0)
             {
@@ -211,7 +216,7 @@ public class TaskController : MonoBehaviour
 
                 if (closestSource != null)
                 {
-                    closestSource.characterWhoTargeted = hc;
+                    closestSource.hc.characterWhoTargeted = hc;
                     targetObject = closestSource.hc;
                     hc.movement.Move(closestSource.gameObject);
                     StartCoroutine(GetDistanceToTarget());
@@ -222,6 +227,55 @@ public class TaskController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PickUpMaterial(BuildMaterial.Type type)
+    {
+        BuildMaterial closestMaterial = null;
+        float distance = 1000;
+
+        List<BuildMaterial> materialsOnLevel = new List<BuildMaterial>();
+
+        if (type == BuildMaterial.Type.Rock)
+        {
+            materialsOnLevel = new List<BuildMaterial>(gm.rock);
+        }
+        else if (type == BuildMaterial.Type.Wood)
+        {
+            materialsOnLevel = new List<BuildMaterial>(gm.wood);
+        }
+
+        foreach(BuildMaterial bm in materialsOnLevel)
+        {
+            if (!bm.usedInBuilding)
+            {
+                float newDistance = Vector3.Distance(transform.position, bm.transform.position);
+                if (newDistance <= distance)
+                {
+                    distance = newDistance;
+                    closestMaterial = bm;
+                }
+            }
+        }
+
+        if (closestMaterial != null)
+        {
+            closestMaterial.hc.characterWhoTargeted = hc;
+            targetObject = closestMaterial.hc;
+            hc.movement.Move(closestMaterial.gameObject);
+            StartCoroutine(GetDistanceToTarget());
+        }
+        else
+        {
+            Invoke("ChooseTask", 1);
+        }
+    }
+
+    public void CarryMaterial()
+    {
+        targetObject = hc.builder.buildingInstance.hc;
+        hc.movement.Move(targetObject.gameObject);
+        StartCoroutine(GetDistanceToTarget());
     }
 
     IEnumerator GetDistanceToTarget()
@@ -241,7 +295,7 @@ public class TaskController : MonoBehaviour
                 ChooseTask();
                 break;
             }
-            if (targetObject.bms && targetObject.bms.characterWhoTargeted != hc)
+            if (targetObject.bms && targetObject.bms.hc.characterWhoTargeted != hc)
             {
                 ChooseTask();
                 break;

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FoodSource : MonoBehaviour
 {
-    [HideInInspector]
     public int foodCurrent = 0;
 
     [HideInInspector]

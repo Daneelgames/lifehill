@@ -26,7 +26,6 @@ public class MovementController : MonoBehaviour
         NavMesh.CalculatePath(transform.position, go.transform.position + (transform.position - go.transform.position).normalized / 3, NavMesh.AllAreas, path);
 
         agent.SetPath(path); //Agent is the NavMeshAgent attached to gameObject
-        print(agent.pathStatus);
         agent.isStopped = false;
 
         /*
