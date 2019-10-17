@@ -18,11 +18,11 @@ public class FoodController : MonoBehaviour
     bool lerpToPosition = false;
     Vector3 targetPosition;
 
-    private void Start()
+    private void Awake()
     {
         hc = GetComponent<HealthController>();
         hc.food = this;
-        gm = hc.gm;
+        gm = GameManager.instance;
         gm.food.Add(this);
         anim = GetComponent<Animator>();
     }

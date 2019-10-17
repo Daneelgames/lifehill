@@ -20,6 +20,10 @@ public class HealthController : MonoBehaviour
     public Interactor interactor;
     [HideInInspector]
     public BuilderController builder;
+    [HideInInspector]
+    public OwnershipController ownership;
+
+    public HealthController owner;
 
     //objects
     [HideInInspector]
@@ -34,6 +38,8 @@ public class HealthController : MonoBehaviour
     public FoodSource fs;
     [HideInInspector]
     public BuildMaterialSource bms;
+    [HideInInspector]
+    public BuildingController building;
 
     [HideInInspector] public Rigidbody rb;
 
@@ -46,8 +52,28 @@ public class HealthController : MonoBehaviour
         satiety = GetComponent<SatietyController>();
     }
 
+    public void NewOwner(HealthController newOwner)
+    {
+        owner = newOwner;
+
+        if (food)
+            owner.ownership.ownFood.Add(this);
+        if (buildMaterial)
+            owner.ownership.ownMaterials.Add(this);
+    }
+
     public void DestroyObject()
     {
+        if (owner)
+        {
+            if (food)
+                owner.ownership.ownFood.Remove(this);
+            if (buildMaterial)
+                owner.ownership.ownMaterials.Remove(this);
+            if (building)
+                owner.ownership.ownBuildings.Remove(this);
+        }
+
         gm.objectsInWorld.Remove(this);
 
         Destroy(gameObject);

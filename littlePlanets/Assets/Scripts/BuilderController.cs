@@ -16,5 +16,8 @@ public class BuilderController : MonoBehaviour
         hc.builder = this;
     }
 
-
+    public void Build()
+    {
+        print("READY TO BUILD HOUSE");
+    }
 }

@@ -16,15 +16,20 @@ public class GameManager : MonoBehaviour
 
     public List<TreeController> trees = new List<TreeController>();
 
-    public List<BuildMaterial> buildMaterials = new List<BuildMaterial>();
+    public List<BuildMaterial> wood = new List<BuildMaterial>();
+    public List<BuildMaterial> rock = new List<BuildMaterial>();
     public List<FoodController> food = new List<FoodController>();
 
     public List<MountainController> mountains = new List<MountainController>();
+    public List<BuildingController> buildings = new List<BuildingController>();
+
+    [HideInInspector] public BuildingTree buildingTree;
 
 
     private void Awake()
     {
         instance = this;
+        buildingTree = GetComponent<BuildingTree>();
     }
 
     private void Update()

@@ -117,6 +117,8 @@ public class TreeController : MonoBehaviour
 
             var explosionPosition = fruitHolder.position + new Vector3(x, -1, z);
 
+            fruit.NewOwner(character);
+
             fruit.rb.AddExplosionForce(Random.Range(50, 500), explosionPosition, 5);
 
             /*
@@ -163,6 +165,8 @@ public class TreeController : MonoBehaviour
                 var explosionPosition = fruitHolder.position + new Vector3(x, -1, z);
 
                 fruit.rb.AddExplosionForce(Random.Range(50, 200), explosionPosition, 5);
+
+                fruit.NewOwner(character);
             }
             fruitsObject.SetActive(false);
         }
@@ -196,6 +200,8 @@ public class TreeController : MonoBehaviour
         {
             wood.gameObject.SetActive(true);
             wood.transform.parent = null;
+
+            wood.NewOwner(character);
         }
 
         hc.DestroyObject();

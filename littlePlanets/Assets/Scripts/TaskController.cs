@@ -23,7 +23,6 @@ public class TaskController : MonoBehaviour
             satiety = hc.satiety;
 
         Invoke("ChooseTask", 1);
-        //ChooseTask();
     }
 
     private void Update()
@@ -53,14 +52,7 @@ public class TaskController : MonoBehaviour
         // if character can BUILD
         if (hc.builder)
         {
-            if (gm.buildMaterials.Count <= 0)
-            {
-                newTask = Task.FindBuildMaterials;
-            }
-            else
-            {
-                newTask = Task.Build;
-            }
+            newTask = Task.Build;
         }
 
         if (newTask != Task.Null) currentTask = newTask;
@@ -78,10 +70,6 @@ public class TaskController : MonoBehaviour
 
             case Task.Eat:
                 EatFood();
-                break;
-
-            case Task.FindBuildMaterials:
-                FindBuildMaterials();
                 break;
 
             case Task.Build:
@@ -153,6 +141,12 @@ public class TaskController : MonoBehaviour
         if (f != null)
         {
             targetObject = f.hc;
+
+            if (!f.hc.owner)
+            {
+                f.hc.NewOwner(hc);
+            }
+
             hc.movement.Move(f.gameObject);
             StartCoroutine(GetDistanceToTarget());
         }
@@ -162,11 +156,34 @@ public class TaskController : MonoBehaviour
         }
     }
 
-    void FindBuildMaterials()
+    void Build()
+    {
+        if (hc.ownership.ownBuildings.Count == 0)
+        {
+            if (gm.buildingTree.buildingsPrefabs[0].woodNeed > gm.wood.Count)
+            {
+                FindBuildMaterials(BuildMaterial.Type.Wood);
+            }
+            else if (gm.buildingTree.buildingsPrefabs[0].rockNeed > gm.rock.Count)
+            {
+                FindBuildMaterials(BuildMaterial.Type.Rock);
+            }
+            else
+            {
+                //there are enough materials
+
+                hc.builder.Build();
+            }
+        }
+    }
+
+    void FindBuildMaterials(BuildMaterial.Type type)
     {
         // find closest build material source
         if (gm.buildMaterialSources.Count > 0)
         {
+            currentTask = Task.FindBuildMaterials;
+
             List<BuildMaterialSource> materialSourcesReady = new List<BuildMaterialSource>();
             foreach (BuildMaterialSource bms in gm.buildMaterialSources)
             {
@@ -205,11 +222,6 @@ public class TaskController : MonoBehaviour
                 }
             }
         }
-    }
-
-    void Build()
-    {
-
     }
 
     IEnumerator GetDistanceToTarget()
